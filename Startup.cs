@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using IdentityWebAPI.Data;
 
 namespace IdentityWebAPI
 {
@@ -38,6 +40,12 @@ namespace IdentityWebAPI
                             .AllowAnyMethod()
                     );
             });
+
+            
+            services.AddDbContext<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
         }
 
