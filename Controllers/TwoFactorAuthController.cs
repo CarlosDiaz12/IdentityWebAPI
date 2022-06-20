@@ -36,7 +36,7 @@ namespace IdentityWebAPI.Controllers
                     var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
 
                     // custom implementation
-                    await SendSmsAsync(user.PhoneNumber, code);
+                    await SendSmsAsync(user.PhoneNumber, "Your security code is: " + code);
                 }
             }
 
