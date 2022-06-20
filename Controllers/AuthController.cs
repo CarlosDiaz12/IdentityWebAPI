@@ -21,6 +21,7 @@ namespace IdentityWebAPI.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginModel credential)
         {
+            if (!ModelState.IsValid) return BadRequest("Validation error ocurred.");
             var result = await _signInManager.PasswordSignInAsync(credential.UserName, credential.Password, false, false);
             if (result.Succeeded) return Ok(new { success = true });
 
@@ -30,6 +31,8 @@ namespace IdentityWebAPI.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel dto)
         {
+            if (!ModelState.IsValid) return BadRequest("Validation error ocurred.");
+
             var newUser = new IdentityUser { UserName = dto.UserName, NormalizedUserName = dto.UserName.ToUpper(), Email = dto.Email };
             var result = await _userManager.CreateAsync(newUser, dto.Password);
 
